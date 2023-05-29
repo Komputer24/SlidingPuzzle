@@ -1,0 +1,55 @@
+body { 
+background: #AAAAAA;
+}
+
+#scramble, #solve{
+  margin-top: 20px; 
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 16px;
+  padding: 16px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#scramble:hover, #solve:hover {
+  background-color: black;
+  color: white;
+}
+
+.tile1, .tile2, .tile3, .tile4, .tile5, .tile6, .tile7, .tile8{
+  display: table-cell;
+  width: 120px;
+  height: 120px;
+  border: 1px solid white;
+  cursor: pointer;
+  text-align: center;
+  font-size: 60px;
+  background-color: coral;
+  line-height: 120px;
+}
+/*
+ .tile1:before {
+      content: "ሀ";
+    } 
+ .tile2:before {
+      content: "ሁ";
+    } 
+ .tile3:before {
+      content: "ሂ";
+    } 
+ .tile4:before {
+      content: "ሃ";
+    } 
+ .tile5:before {
+      content: "ሄ";
+    } 
+ .tile6:before {
+      content: "ህ";
+    } 
+ .tile7:before {
+      content: "ሆ";
+    } */
+.tile8 {background: white; cursor: default;
