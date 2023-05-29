@@ -1,8 +1,11 @@
 body { 
 background: #AAAAAA;
 }
-
-#scramble, #solve{
+.level{
+    position: absolute;
+    float: left;
+}
+#scramble, #solve, #next, #restart, .level{
   margin-top: 20px; 
   background-color: #f1f1f1;
   color: black;
@@ -14,7 +17,7 @@ background: #AAAAAA;
   text-align: center;
 }
 
-#scramble:hover, #solve:hover {
+#scramble:hover, #solve:hover, #next:hover, #restart:hover, .level:hover{
   background-color: black;
   color: white;
 }

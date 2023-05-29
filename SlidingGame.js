@@ -1,8 +1,8 @@
-var i,x;
+var i,x,r;
+r = 0;
 var cond = false;
 var curr = [];
-var ha = ["ሀ", "ሁ", "ሂ", "ሃ", "ሄ", "ህ", "ሆ"];
-var le = ["ለ", "ሉ", "ሊ", "ላ", "ሌ", "ል", "ሎ"];
+var alp = ["ሀ", "ሁ", "ሂ", "ሃ", "ሄ", "ህ", "ሆ", "ለ", "ሉ", "ሊ", "ላ", "ሌ", "ል", "ሎ"];
 /*eslint-env browser*/
 
 // Function to Swap the two tiles classes and therefore changing their positions
@@ -14,9 +14,37 @@ function swapTiles(cell1,cell2) {
   document.getElementById(cell2).className = temp;
   document.getElementById(cell2).innerHTML = temp2;
 }
-
+function switchLvl(n){
+    r=n;
+    solve();
+}
+function restart(){
+    r = 0;
+    document.getElementsByTagName('body')[0].style.backgroundColor = "#AAAAAA";
+    document.getElementsByTagName('h1')[0].style.display = "hidden";
+    document.getElementById("all").style.display = "block";
+    document.getElementById("restart").style.visibility = "hidden";
+    solve();
+}
+function next(){
+    r = r + 7;
+    if(alp[r] != undefined){
+        solve();
+        document.getElementById("cell24").innerHTML = "";
+        //console.log(">>>> ", r, i, x)
+    }else{
+        alert("You Win");
+        /*
+        document.getElementsByTagName('body')[0].style.backgroundColor = "skyblue";
+        document.getElementsByTagName('h1')[0].style.display = "block";
+        document.getElementById("all").style.display = "none";
+        document.getElementById("restart").style.visibility = "visible";
+        */
+    }
+}
 function scramble(){
     document.getElementById("victoryTxt").style.visibility = "hidden";     
+    document.getElementById("next").style.visibility = "hidden";     
     for(var row1 = 1; row1 <= 2; row1++){
         for(var col1=1; col1<=4; col1++){
             if(document.getElementById("cell"+row1+col1).innerHTML == "✅"){
@@ -36,62 +64,28 @@ function scramble(){
       } 
     } 
 }
-/*
-function solve(){
-    document.getElementById("victoryTxt").style.visibility = "hidden";     
-    for(var row1 = 1; row1 <= 2; row1++){
-        for(var col1=1; col1<=4; col1++){
-            if(document.getElementById("cell"+row1+col1).innerHTML == "✅"){
-                document.getElementById("cell"+row1+col1).innerHTML = "";
-            }
-        }
-    }
+function solve(l){
+    document.getElementById("victoryTxt").style.visibility = "hidden";      
+    document.getElementById("next").style.visibility = "hidden";    
+    i = r;
     for(var row1 = 1; row1 <= 2; row1++){
         for(var col1=1; col1<=4; col1++){
             if(document.getElementById("cell"+row1+col1).innerHTML == ""){
                 swapTiles("cell"+row1+col1, "cell23")
             }
-        }
-    }
-    var i = 0;
-    for(var row1 = 1; row1 <= 2; row1++){
-        for(var col1=1; col1<=4; col1++){
-            //console.log(i);
             if(document.getElementById("cell"+row1+col1).innerHTML != ""){
-                document.getElementById("cell"+row1+col1).innerHTML = ha[i]; 
-                i++;
-            }
-        }
-    }   
-}
-*/
-function solve(){
-    document.getElementById("victoryTxt").style.visibility = "hidden";     
-    i = 0;
-    for(var row1 = 1; row1 <= 2; row1++){
-        for(var col1=1; col1<=4; col1++){
-            if(document.getElementById("cell"+row1+col1).innerHTML == ""){
-                swapTiles("cell"+row1+col1, "cell23")
-            }
-            //console.log(i,row1,col1, ha[i]);
-            if(document.getElementById("cell"+row1+col1).innerHTML != ""){
-                if(i <= 6){
-                    document.getElementById("cell"+row1+col1).innerHTML = ha[i]; 
+                if(i <= 6+r){
+                    //console.log(r, i, alp[i], alp[x]);
+                    document.getElementById("cell"+row1+col1).innerHTML = alp[i]; 
                     i++;
                 }
             }
         }
     }
 }
-
-/*
-    document.getElementById("cell11").innerHTML = "ሀ"; document.getElementById("cell12").innerHTML = "ሁ";
-    document.getElementById("cell13").innerHTML = "ሂ"; document.getElementById("cell14").innerHTML = "ሃ";
-    document.getElementById("cell21").innerHTML = "ሄ"; document.getElementById("cell22").innerHTML = "ህ";
-    document.getElementById("cell24").innerHTML = "ሆ";
-    */
 function checkWin(){
-    document.getElementById("victoryTxt").style.visibility = "hidden";
+    document.getElementById("victoryTxt").style.visibility = "hidden";  
+    document.getElementById("next").style.visibility = "hidden";   
     if(cond === true){ 
         for(var row1 = 1; row1 <= 2; row1++){
             for(var col1=1; col1<=4; col1++){
@@ -102,37 +96,25 @@ function checkWin(){
         }
         cond = false;
     }
-    x = 0;
+    x = r;
     for(var row1 = 1; row1 <= 2; row1++){
         for(var col1=1; col1<=4; col1++){
-            if(document.getElementById("cell"+row1+col1).innerHTML == ha[x]){
+            if(document.getElementById("cell"+row1+col1).innerHTML == alp[x]){
+                /*console.log("-------");
+                console.log(r, i, alp[i], alp[x]);*/
                 cond = true;
-                //console.log(x,row1,col1, ha[x], cond);
                 x++;
             }else if(x < 7){
                 cond = false;
-                //console.log("HERE: " + cond, x, row1, col1, ha[x])
                 break;
             }
         }
     }
-    //console.log("-----")
     if(cond == true){
-        //console.log("YAY");
-        document.getElementById("victoryTxt").style.visibility = "visible";
+        document.getElementById("victoryTxt").style.visibility = "visible";  
+        document.getElementById("next").style.visibility = "visible";   
         document.getElementById("cell24").innerHTML = "✅";
     }
-/*
-    if(
-        document.getElementById("cell11").innerHTML === "ሀ" && document.getElementById("cell12").innerHTML === "ሁ" &&
-        document.getElementById("cell13").innerHTML === "ሂ" && document.getElementById("cell14").innerHTML === "ሃ" &&
-        document.getElementById("cell21").innerHTML === "ሄ" && document.getElementById("cell22").innerHTML === "ህ" &&
-        document.getElementById("cell23").innerHTML === "ሆ"
-    ){
-        document.getElementById("victoryTxt").style.visibility = "visible";
-        document.getElementById("cell24").innerHTML = "✅";
-        cond = true;
-    }*/
 }
 
 function clickTile(row,column) {
@@ -166,40 +148,4 @@ function clickTile(row,column) {
         }
   }  
     checkWin();
-    //console.log(cond);
 }
-
-/*
-// Function to Swap the two tiles classes and therefore changing their positions
-function swapTiles(cell1,cell2) {
-  var temp = document.getElementById(cell1).className; // Storing the first cell classname in temp var
-  document.getElementById(cell1).className = document.getElementById(cell2).className; // Changing the class name of the first cell to the second cell
-  document.getElementById(cell2).className = temp; // Changing the class name of the second cell to the first cell but using the temp var since the cell 1 class name is now cell 2's
-}
-
-
-function clickTile(row,column) {
-  var cell = document.getElementById("cell"+row+column);// asssign the variable cell to the id of the given parameter
-  var tile = cell.className; // assign the className in the tile variable
-  
-  if (tile!="tile2") {  // tile! = tile2 so you can't click the white space
-       //Checking if white tile on the right
-       if (column<2) {
-        // If the blank tile column position is less than two(since it can't be on the right if its all the way to the right) then check if the tile to the right is the blank tile, if it is use the swapTiles() function
-         if ( document.getElementById("cell"+row+(column+1)).className=="tile2") {
-           swapTiles("cell"+row+column,"cell"+row+(column+1));
-           return;
-         }
-       }
-       //Checking if white tile on the left
-       if (column>1) {
-        // If the blank tile column position is more than one(since it can't be on the left if its all the way to the left) then check if the tile to the left is the blank tile, if it is use the swapTiles() function
-         if ( document.getElementById("cell"+row+(column-1)).className=="tile2") {
-           swapTiles("cell"+row+column,"cell"+row+(column-1));
-           return;
-         }
-       } 
-  }
-  
-}
-*/
