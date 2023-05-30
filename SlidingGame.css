@@ -2,8 +2,23 @@ body {
 background: #AAAAAA;
 }
 .level{
-    position: absolute;
+    position: static;
     float: left;
+    margin: 10px 10px 10px 10px;
+}
+#all{
+  position: absolute;
+  width: 100%;
+  height: auto;
+}
+#lvls{
+    position: absolute;
+    width: 400px;
+}
+#uwin{
+    font-size: 130px; 
+    margin: 20% 10% 5% 33%;
+    display: none;
 }
 #scramble, #solve, #next, #restart, .level{
   margin-top: 20px; 

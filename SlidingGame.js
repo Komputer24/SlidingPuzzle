@@ -2,7 +2,8 @@ var i,x,r;
 r = 0;
 var cond = false;
 var curr = [];
-var alp = ["ሀ", "ሁ", "ሂ", "ሃ", "ሄ", "ህ", "ሆ", "ለ", "ሉ", "ሊ", "ላ", "ሌ", "ል", "ሎ"];
+var alp = ["ሀ", "ሁ", "ሂ", "ሃ", "ሄ", "ህ", "ሆ", "ለ", "ሉ", "ሊ", "ላ", "ሌ", "ል", "ሎ", "መ", "ሙ", "ሚ", "ማ", "ሜ", "ም", "ሞ"];
+						
 /*eslint-env browser*/
 
 // Function to Swap the two tiles classes and therefore changing their positions
@@ -21,25 +22,26 @@ function switchLvl(n){
 function restart(){
     r = 0;
     document.getElementsByTagName('body')[0].style.backgroundColor = "#AAAAAA";
-    document.getElementsByTagName('h1')[0].style.display = "hidden";
+    document.getElementById("uwin").style.display = "none";
+    //document.getElementsByTagName('h1')[0].style.display = "hidden";
     document.getElementById("all").style.display = "block";
     document.getElementById("restart").style.visibility = "hidden";
     solve();
 }
 function next(){
     r = r + 7;
+    cond = true;
     if(alp[r] != undefined){
         solve();
-        document.getElementById("cell24").innerHTML = "";
+        //document.getElementById("cell24").innerHTML = "";
         //console.log(">>>> ", r, i, x)
     }else{
-        alert("You Win");
-        /*
+        //alert("You Win");
         document.getElementsByTagName('body')[0].style.backgroundColor = "skyblue";
-        document.getElementsByTagName('h1')[0].style.display = "block";
+        //document.getElementsByTagName('h1')[0].style.display = "block";
+        document.getElementById("uwin").style.display = "block";
         document.getElementById("all").style.display = "none";
         document.getElementById("restart").style.visibility = "visible";
-        */
     }
 }
 function scramble(){
@@ -64,14 +66,15 @@ function scramble(){
       } 
     } 
 }
-function solve(l){
+function solve(){
     document.getElementById("victoryTxt").style.visibility = "hidden";      
     document.getElementById("next").style.visibility = "hidden";    
     i = r;
     for(var row1 = 1; row1 <= 2; row1++){
-        for(var col1=1; col1<=4; col1++){
-            if(document.getElementById("cell"+row1+col1).innerHTML == ""){
-                swapTiles("cell"+row1+col1, "cell23")
+        for(var col1=1;  col1<=4; col1++){
+            if(document.getElementById("cell"+row1+col1).innerHTML == "" || document.getElementById("cell"+row1+col1).innerHTML == "✅"){
+                swapTiles("cell"+row1+col1, "cell23");  
+                document.getElementById("cell23").innerHTML = "";
             }
             if(document.getElementById("cell"+row1+col1).innerHTML != ""){
                 if(i <= 6+r){
@@ -100,11 +103,10 @@ function checkWin(){
     for(var row1 = 1; row1 <= 2; row1++){
         for(var col1=1; col1<=4; col1++){
             if(document.getElementById("cell"+row1+col1).innerHTML == alp[x]){
-                /*console.log("-------");
-                console.log(r, i, alp[i], alp[x]);*/
+                //console.log("-------", r, i, alp[i], alp[x]);
                 cond = true;
                 x++;
-            }else if(x < 7){
+            }else if(x<= 6+r){
                 cond = false;
                 break;
             }
@@ -112,7 +114,8 @@ function checkWin(){
     }
     if(cond == true){
         document.getElementById("victoryTxt").style.visibility = "visible";  
-        document.getElementById("next").style.visibility = "visible";   
+        document.getElementById("next").style.visibility = "visible"; 
+        //console.log(x, r, alp[x], cond);
         document.getElementById("cell24").innerHTML = "✅";
     }
 }

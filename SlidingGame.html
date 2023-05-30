@@ -7,12 +7,13 @@
 </head>
 <body>
     <div id="container">
-        <h1 id="uwin" style="display: none;font-size: 130px; margin: 20% 10% 5% 33%;">You Win!</h1>
-        <h1>
-            <button class="level" onclick="switchLvl(0)">ሀ</button> <br><br>
-            <button class="level" onclick="switchLvl(7)">ለ</button>
-        </h1>
+        <h1 id="uwin">You Win!</h1>
         <center id="all">
+        <div id="lvls">
+            <button class="level" onclick="switchLvl(0)">ሀ</button>
+            <button class="level" onclick="switchLvl(7)">ለ</button>
+            <button class="level" onclick="switchLvl(14)">መ</button>
+        </div>
             <div id="table" style="display: table;">
                <div id="row1" style="display: table-row;">
                   <div id="cell11" class="tile1" onClick="clickTile(1,1);">ሀ</div>
